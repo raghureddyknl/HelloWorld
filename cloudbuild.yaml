@@ -6,13 +6,13 @@ steps:
    args:
    - package
 # Deploy to App Engine
--  name: gcr.io/cloud-builders/gcloud
+-  name: gcr.io/$PROJECT_ID/gcloud
    args:
    - app
    - deploy
    timeout: 1600s
 # Build the container image
--  name: gcr.io/cloud-builders/docker
+-  name: gcr.io/$PROJECT_ID/docker
    args:
    - build
    - -t
@@ -20,12 +20,12 @@ steps:
    - --build-arg=JAR_FILE=target/HelloWorld-0.0.1-SNAPSHOT.jar
    - .
 # Push the container image to Container Registry
--  name: gcr.io/cloud-builders/docker
+-  name: gcr.io/$PROJECT_ID/docker
    args:
    - push
    - gcr.io/$PROJECT_ID/HelloWorld
 # Deploy container image to Cloud Run
--  name: gcr.io/cloud-builders/gcloud
+-  name: gcr.io/$PROJECT_ID/gcloud
    args:
    - run
    - deploy
